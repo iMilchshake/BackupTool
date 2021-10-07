@@ -1,24 +1,25 @@
-import Commands.*;
+import Configuration.Job;
+import Configuration.JobStorage;
 
 import java.util.Arrays;
+
+import static Configuration.JobStorage.getJob;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("[DEBUG] args: " + Arrays.toString(args));
 
         // determine entered command
-        Command cmd;
         if ("addjob".equals(args[0])) {
-            cmd = new AddJobCommand();
+            JobStorage.addJob(new Job(args[1], args[2], args[3]));
         } else if ("removejob".equals(args[0])) {
-            cmd = new RemoveJobCommand();
+            JobStorage.removeJob(args[1]);
         } else if ("joblist".equals(args[0])) {
-            cmd = new JobListCommand();
+            JobStorage.printJobs();
+        } else if ("run".equals(args[0])) {
+            Backup.backup(getJob(args[1]));
         } else {
-            cmd = new InvalidCommand();
+            throw new Exception("Invalid Command! " + Arrays.toString(args));
         }
-
-        // run command
-        cmd.run(args);
     }
 }

@@ -14,11 +14,11 @@ public class JobStorage {
 
     // TODO: remove this testing code
     public static void main(String[] args) throws Exception {
-        getJobs();
+        printJobs();
         addJob(new Job("job3", "input", "output"));
-        getJobs();
+        printJobs();
         removeJob("job3");
-        getJobs();
+        printJobs();
         removeJob("job3");
     }
 
@@ -40,12 +40,22 @@ public class JobStorage {
 
     private static int getJobIndex(String jobName, JSONArray jobs) {
         for (int i = 0; i < jobs.length(); i++) {
-            JSONObject job = jobs.getJSONObject(i);
-            if (jobName.equals(job.getString("name"))) {
+            if (jobName.equals(jobs.getJSONObject(i).getString("name"))) {
                 return i;
             }
         }
         return -1;
+    }
+
+    public static Job getJob(String jobName) throws Exception {
+        JSONArray jobs = readFile();
+        for (int i = 0; i < jobs.length(); i++) {
+            JSONObject jobObject = jobs.getJSONObject(i);
+            if (jobName.equals(jobObject.getString("name"))) {
+                return new Job(jobObject);
+            }
+        }
+        throw new Exception(String.format("Job '%s' was not found", jobName));
     }
 
     public static void addJob(Job job) throws Exception {
@@ -74,7 +84,7 @@ public class JobStorage {
         }
     }
 
-    public static void getJobs() throws Exception {
+    public static void printJobs() throws Exception {
         JSONArray jobs = readFile();
         for (int i = 0; i < jobs.length(); i++) {
             System.out.println("[" + i + "] - " + new Job(jobs.getJSONObject(i)));
