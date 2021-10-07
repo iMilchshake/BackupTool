@@ -52,13 +52,13 @@ public class JobStorage {
         JSONArray jobs = readFile();
         int jobIndex = getJobIndex(job.getName(), jobs);
 
-        if(jobIndex == -1) {
+        if (jobIndex == -1) {
             jobs.put(job.toJSONObject());
+            saveFile(jobs);
+            System.out.printf("Job '%s' was successfully added \n", job.getName());
         } else {
             throw new Exception(String.format("A Job with the name '%s' already exists", job.getName()));
         }
-
-        saveFile(jobs);
     }
 
     public static void removeJob(String jobName) throws Exception {
@@ -77,7 +77,7 @@ public class JobStorage {
     public static void getJobs() throws Exception {
         JSONArray jobs = readFile();
         for (int i = 0; i < jobs.length(); i++) {
-            System.out.println("["+i+"] - " + new Job(jobs.getJSONObject(i)));
+            System.out.println("[" + i + "] - " + new Job(jobs.getJSONObject(i)));
         }
     }
 }

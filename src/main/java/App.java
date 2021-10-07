@@ -1,18 +1,17 @@
-import Commands.Command;
-import Commands.InvalidCommand;
-import Commands.JobCommand;
-import Commands.JobListCommand;
+import Commands.*;
 
 import java.util.Arrays;
 
 public class App {
-    public static void main(String[] args) {
-        System.out.println("args: " + Arrays.toString(args));
+    public static void main(String[] args) throws Exception {
+        System.out.println("[DEBUG] args: " + Arrays.toString(args));
 
         // determine entered command
         Command cmd;
-        if ("job".equals(args[0])) {
-            cmd = new JobCommand();
+        if ("addjob".equals(args[0])) {
+            cmd = new AddJobCommand();
+        } else if ("removejob".equals(args[0])) {
+            cmd = new RemoveJobCommand();
         } else if ("joblist".equals(args[0])) {
             cmd = new JobListCommand();
         } else {

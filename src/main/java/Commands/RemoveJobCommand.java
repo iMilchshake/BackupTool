@@ -2,10 +2,9 @@ package Commands;
 
 import Configuration.JobStorage;
 
-public class JobListCommand implements Command {
-
+public class RemoveJobCommand implements Command {
     @Override
     public void run(String[] args) throws Exception {
-        JobStorage.getJobs();
+        JobStorage.removeJob(args[1]);
     }
 }

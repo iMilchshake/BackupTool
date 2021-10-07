@@ -1,5 +1,5 @@
 package Commands;
 
 public interface Command {
-    void run(String[] args);
+    void run(String[] args) throws Exception;
 }

@@ -2,10 +2,10 @@ package Commands;
 
 import java.util.Arrays;
 
-public class InvalidCommand implements Command{
+public class InvalidCommand implements Command {
 
     @Override
-    public void run(String[] args) {
-        System.out.println("Invalid Commands! " + Arrays.toString(args));
+    public void run(String[] args) throws Exception {
+        throw new Exception("Invalid Command! " + Arrays.toString(args));
     }
 }
