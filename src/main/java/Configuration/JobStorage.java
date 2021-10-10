@@ -3,10 +3,12 @@ package Configuration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class JobStorage {
 
@@ -23,12 +25,27 @@ public class JobStorage {
     }
 
     private static JSONArray readFile() throws Exception {
-        String fileContent = Files.readString(Path.of(file));
+        InputStream is = JobStorage.class.getClassLoader().getResourceAsStream(file);
+        String fileContent;
 
+        // read file
+        try {
+            // https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java
+            ByteArrayOutputStream result = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            for (int length; (length = Objects.requireNonNull(is).read(buffer)) != -1; ) {
+                result.write(buffer, 0, length);
+            }
+            fileContent = result.toString(StandardCharsets.UTF_8);  // StandardCharsets.UTF_8.name() > JDK 7
+        } catch (Exception e) {
+            throw new Exception("Error while reading jobs.json");
+        }
+
+        // parse file to json
         try {
             return new JSONArray(fileContent);
         } catch (Exception e) {
-            throw new Exception("Error while parsing jobs.json");
+            throw new Exception("Error while parsing jobs.json to JSON");
         }
     }
 
