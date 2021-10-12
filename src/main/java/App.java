@@ -41,7 +41,7 @@ public class App {
                 break;
             case "joblist":
                 sanitizeInput(args, 0);
-                JobStorage.printJobs();
+                System.out.println(JobStorage.printJobs());
                 break;
             case "run":
                 sanitizeInput(args, 1);

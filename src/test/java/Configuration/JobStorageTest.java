@@ -16,25 +16,25 @@ public class JobStorageTest {
     Job jobB = new Job("jobB", "sourceB", "targetB");
 
     @Before
-    public void resetJobs() throws IOException {
+    public void TestResetJobs() throws IOException {
         FileWriter file = new FileWriter("jobs.json");
         file.write("[]");
         file.close();
     }
 
     @Test
-    public void addJob() throws Exception {
+    public void TestAddJob() throws Exception {
         JobStorage.addJob(jobA);
     }
 
     @Test
-    public void addAndGetJob() throws Exception {
+    public void TestAddAndGetJob() throws Exception {
         JobStorage.addJob(jobA);
         assertEquals(jobA, JobStorage.getJob(jobA.getName()));
     }
 
     @Test
-    public void getWrongJob() {
+    public void TestGetWrongJob() {
 
         try {
             JobStorage.getJob(jobA.getName());
@@ -46,7 +46,7 @@ public class JobStorageTest {
     }
 
     @Test
-    public void addJobTwice() throws Exception {
+    public void TestAddJobTwice() throws Exception {
         JobStorage.addJob(jobA);
         try {
             JobStorage.addJob(jobA);
@@ -57,7 +57,7 @@ public class JobStorageTest {
     }
 
     @Test
-    public void addTwoJobs() throws Exception {
+    public void TestAddTwoJobs() throws Exception {
         JobStorage.addJob(jobA);
         JobStorage.addJob(jobB);
         assertEquals(jobA, JobStorage.getJob(jobA.getName()));
@@ -65,7 +65,7 @@ public class JobStorageTest {
     }
 
     @Test
-    public void removeJob() throws Exception {
+    public void TestRemoveJob() throws Exception {
         JobStorage.addJob(jobA);
         assertEquals(jobA, JobStorage.getJob(jobA.getName()));
         JobStorage.removeJob(jobA.getName());
@@ -80,7 +80,7 @@ public class JobStorageTest {
     }
 
     @Test
-    public void removeNonexistentJob() throws Exception {
+    public void TestRemoveNonexistentJob() throws Exception {
         JobStorage.addJob(jobA);
         assertEquals(jobA, JobStorage.getJob(jobA.getName()));
         try {
@@ -92,10 +92,18 @@ public class JobStorageTest {
     }
 
     @Test
-    public void removeDifferentJob() throws Exception {
+    public void TestRemoveDifferentJob() throws Exception {
         JobStorage.addJob(jobA);
         JobStorage.addJob(jobB);
         JobStorage.removeJob(jobB.getName());
         assertEquals(jobA, JobStorage.getJob(jobA.getName()));
+    }
+
+    @Test
+    public void TestJoblist() throws Exception {
+        JobStorage.addJob(jobA);
+        JobStorage.addJob(jobB);
+        assertEquals("[0] - name='jobA', source='sourceA', target='targetA'\n" +
+                "[1] - name='jobB', source='sourceB', target='targetB'\n", JobStorage.printJobs());
     }
 }

@@ -74,10 +74,12 @@ public class JobStorage {
         }
     }
 
-    public static void printJobs() throws Exception {
+    public static String printJobs() throws Exception {
         JSONArray jobs = readFile();
+        StringBuilder out = new StringBuilder();
         for (int i = 0; i < jobs.length(); i++) {
-            System.out.println("[" + i + "] - " + new Job(jobs.getJSONObject(i)));
+            out.append("[").append(i).append("] - ").append(new Job(jobs.getJSONObject(i))).append("\n");
         }
+        return out.toString();
     }
 }
