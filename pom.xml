@@ -6,7 +6,7 @@
 
     <groupId>dev.schnder</groupId>
     <artifactId>BackupTool</artifactId>
-    <version>0.1a</version>
+    <version>0.2a</version>
 
 
     <properties>
