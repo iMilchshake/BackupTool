@@ -2,10 +2,12 @@ package Configuration;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Job {
-    private String name;
-    private String source;
-    private String target;
+    private final String name;
+    private final String source;
+    private final String target;
 
     public Job(String name, String source, String target) {
         this.name = name;
@@ -36,6 +38,19 @@ public class Job {
         return "name='" + name + '\'' +
                 ", source='" + source + '\'' +
                 ", target='" + target + '\'';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return getName().equals(job.getName()) && getSource().equals(job.getSource()) && getTarget().equals(job.getTarget());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSource(), getTarget());
     }
 
     public JSONObject toJSONObject() {

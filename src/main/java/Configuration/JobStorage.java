@@ -12,16 +12,6 @@ public class JobStorage {
 
     private static final String file = "jobs.json";
 
-    // TODO: remove this testing code
-    public static void main(String[] args) throws Exception {
-        printJobs();
-        addJob(new Job("job3", "input", "output"));
-        printJobs();
-        removeJob("job3");
-        printJobs();
-        removeJob("job3");
-    }
-
     private static JSONArray readFile() throws Exception {
         String fileContent = Files.readString(Path.of(file));
 
