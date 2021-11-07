@@ -1,29 +1,33 @@
 # BackupTool
 
-Ein minimalistisches CLI BackupTool in Java.
+A minimalistic CLI backup tool made with Java.
 
 ## Installation
 
-GitHub Repository klonen
+### 1) Download the newest [Release](https://github.com/iMilchshake/BackupTool/releases/tag/v0.2a)
+
+### 2) Build it yourself
+
+Clone the GitHub Repository
 
 ````bash
 git clone https://github.com/iMilchshake/BackupTool.git
 ````
 
-Mit Maven das Projekt bauen
+Build the Project using 
 
 ````bash
 mvn package 
 ````
 
 
-## Verwendung
+## Usage
 
 ```bash
 java -jar BackupTool-0.2a.jar <command> <arg1> <arg2> ..
 ```
 
-## Befehle
+## Commands
 ````
 - joblist
     - prints a list of existing jobs
@@ -41,9 +45,10 @@ java -jar BackupTool-0.2a.jar <command> <arg1> <arg2> ..
     - shows this message
 ````
 
-## Beispiel
+## Example
 
-Als Beispiel wird ein Job `BackupImages` eingerichtet um Bilder aus dem Pfad `G:\Images` nach `D:\Backup\Images` zu sichern. Anschließend lässt sich dieser Job immer wieder ausführen.
+As an example, a job `BackupImages` is set up to backup images from the path `G:\Images` to `D:\Backup\Images`. Afterwards, this job can be run over and over again.
+
 ````
 java -jar BackupTool-0.2a.jar addjob BackupImages G:\Images\ D:\Backup\Images
 java -jar BackupTool-0.2a.jar joblist
